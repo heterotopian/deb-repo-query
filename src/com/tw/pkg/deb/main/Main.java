@@ -29,7 +29,7 @@ public class Main {
             architecture = args[3];
         }
 
-        DebianRepoQuery debianRepoQuery = new DebianRepoQuery(packagesZipURL);
+        DebianRepoQuery debianRepoQuery = new DebianRepoQuery(packagesZipURL, packageName);
         debianRepoQuery.updateCacheIfRequired();
         List<DebianPackage> debianPackagesForSpec = debianRepoQuery.getDebianPackagesFor(packageName, versionSpec, architecture);
         System.out.println("number of packages: " + debianPackagesForSpec.size());

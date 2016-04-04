@@ -16,7 +16,7 @@ public class DebianRepoQuery {
     private DebianRepository debianRepository;
     private PackageDAO packageDAO;
 
-    public DebianRepoQuery(String packagesZipURL) throws Exception {
+    public DebianRepoQuery(String packagesZipURL, String packageName) throws Exception {
         String tempDir = System.getProperty("java.io.tmpdir");
         String debRepoQueryDirPath = null;
         if (tempDir.endsWith("/"))
@@ -24,7 +24,7 @@ public class DebianRepoQuery {
         else
             debRepoQueryDirPath = tempDir + File.separator + "deb-repo-query";
         String cacheFolderPath = new Long(Math.abs(packagesZipURL.hashCode())).toString();
-        this.rootDirectory = debRepoQueryDirPath + File.separator + cacheFolderPath;
+        this.rootDirectory = debRepoQueryDirPath + File.separator + cacheFolderPath + File.separator + packageName;
         this.lockFilePath = this.rootDirectory + File.separator + "filelock";
         String databaseFilePath = this.rootDirectory + File.separator + "cache.db";
 

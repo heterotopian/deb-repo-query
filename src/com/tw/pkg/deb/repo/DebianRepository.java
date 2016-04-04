@@ -73,9 +73,11 @@ public class DebianRepository {
             }
 
             URL urlObj = new URL(packagesZipURL);
+            boolean hasDate = true;
             long newDate = knownDate;
             String protocol = urlObj.getProtocol();
             if (protocol.equals("http") || protocol.equals("https")) {
+                hasDate = false;
                 HttpURLConnection.setFollowRedirects(false);
                 HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
                 if (urlObj.getUserInfo() != null && !urlObj.getUserInfo().isEmpty()){
@@ -87,13 +89,17 @@ public class DebianRepository {
                 newDate = new File(urlObj.getPath()).lastModified();
             }
 
-            if (newDate != knownDate) {
-                knownDate = newDate;
-                FileUtils.writeStringToFile(new File(this.lastKnowDateStoreFilePath), new Long(knownDate).toString());
+            if (hasDate) {
+                if (newDate != knownDate) {
+                    knownDate = newDate;
+                    FileUtils.writeStringToFile(new File(this.lastKnowDateStoreFilePath), new Long(knownDate).toString());
+                    return true;
+                }
+                return false;
+            } else {
                 return true;
             }
 
-            return false;
         } catch (Exception e) {
             throw new RuntimeException("could not check if repository has changes", e);
         }

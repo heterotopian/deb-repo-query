@@ -10,7 +10,7 @@ import java.util.List;
 public class DebianRepoQueryTest {
     @Test
     public void shouldSortPackagesReturnedByDebianRepository() throws Exception {
-        DebianRepoQuery debianRepoQuery = new DebianRepoQuery("http://test.com");
+        DebianRepoQuery debianRepoQuery = new DebianRepoQuery("http://test.com", "name_1");
 
         PackageDAO packageDAO = debianRepoQuery.getPackageDAO();
         packageDAO.deleteTableIfExists();
