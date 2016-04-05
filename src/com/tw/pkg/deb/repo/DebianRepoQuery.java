@@ -72,6 +72,9 @@ public class DebianRepoQuery {
     private void updateCache() throws Exception {
         List<DebianPackage> allPackages = debianRepository.getAllPackages();
 
+        packageDAO.deleteTableIfExists();
+        packageDAO.createTableIfNotExists();
+
         if (packageDAO.getPackageCount() > 0) {
             packageDAO.updateIfRequired(allPackages);
         } else {
