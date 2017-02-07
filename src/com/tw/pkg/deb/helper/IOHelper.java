@@ -43,9 +43,12 @@ public class IOHelper {
     }
 
     public static FileLock getLockOnFile(String filePath) throws Exception {
+        /*
         RandomAccessFile file = new RandomAccessFile(filePath, "rw");
         FileLock lock = file.getChannel().lock();
         return lock;
+        */
+        return null;
     }
 
     public static void releaseFileLock(FileLock lock) throws Exception {
